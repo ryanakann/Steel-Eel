@@ -31,6 +31,8 @@ public class EelGenerate : MonoBehaviour
             GenerateSlice(child);
             segments--;
         }
+
+        child.AddComponent<EelMovement>();
     }
 
     void GenerateSlice(GameObject child)
