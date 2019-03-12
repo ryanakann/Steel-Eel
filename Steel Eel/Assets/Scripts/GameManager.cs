@@ -31,6 +31,6 @@ public class GameManager : MonoBehaviour {
 
     public void EndGame()
     {
-        FadeController.instance.FadeIn();
+        //FadeController.instance.FadeOut();
     }
 }

@@ -14,6 +14,7 @@ public class EelController : MonoBehaviour
     public ActionEvent InteractEvent;
 
     Camera main;
+    int layermask;
 
     public bool can_input;
 
@@ -36,6 +37,8 @@ public class EelController : MonoBehaviour
         FadeController.instance.FadeOutStartedEvent += delegate { can_input = false; };
 
         can_input = true;
+
+        layermask = 1 << 11;
     }
 
     // Update is called once per frame
@@ -77,6 +80,7 @@ public class EelController : MonoBehaviour
     void FireEvent()
     {
         Interactable i = Interaction();
+        print(i);
         if (i != null)
         {
             InteractEvent?.Invoke(i);
@@ -89,10 +93,12 @@ public class EelController : MonoBehaviour
 
     Interactable Interaction()
     {
-        RaycastHit2D hit = Physics2D.Raycast(main.ScreenToWorldPoint(GetPointerPosition()), Vector2.zero);
+        print("AAAA");
+        RaycastHit2D hit = Physics2D.Raycast(main.ScreenToWorldPoint(GetPointerPosition()), Vector2.zero, 1f, layermask);
 
         if (hit)
         {
+            print("WE HIT EM " + hit.collider.name);
             return hit.collider.GetComponent<Interactable>();
         }
         return null;

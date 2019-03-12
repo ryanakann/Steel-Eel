@@ -15,4 +15,6 @@ public class Bumbo : MonoBehaviour, Interactable
     {
         
     }
+
+    public void Interact() { }
 }

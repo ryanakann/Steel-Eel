@@ -49,7 +49,8 @@ public class EelBody : MonoBehaviour
 
     void Interact(Interactable i)
     {
-        print("Interaaaact");
+        print("GOOGOO GAGA");
+        i.Interact();
     }
 
     #region COLLISION

@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour {
 	private float maxTimeSpentNotMoving = 6f;
 	private Vector3 positionLastFrame;
 
-	public EnemyState state, lastState;
+	public EnemyState state;
 	private Pathfinding.AIDestinationSetter destinationSetter;
 	private EnemySight lineOfSight;
 
@@ -47,9 +47,8 @@ public class EnemyController : MonoBehaviour {
 	private float captureDuration = 2f;
 
     //Stunned
-    private bool stunned;
 	private float timeSpentStunned;
-	private float stunDuration = 5f;
+	[HideInInspector] public float stunDuration = 5f;
 
     private float arrivalDistance = 0.04f;
 
@@ -83,7 +82,6 @@ public class EnemyController : MonoBehaviour {
 		timeSpentStunned = 0f;
 
 		state = EnemyState.patrolling;
-        lastState = state;
 
 		investigatePoint = new GameObject("InvestigatePoint").transform;
 		transform.SetParent(transform);
@@ -222,9 +220,12 @@ public class EnemyController : MonoBehaviour {
 				break;
 
 			case EnemyState.capturing:
-                EelController.instance.can_input = false;
+                //print("caputure time: " + timeSpentCapturing);
+                if (EelController.instance.can_input)
+                    EelController.instance.can_input = false;
                 if (timeSpentCapturing > captureDuration) {
                     GameManager.instance.EndGame();
+                    state = EnemyState.none;
 				}
 
 				timeSpentCapturing += Time.deltaTime;
@@ -237,12 +238,12 @@ public class EnemyController : MonoBehaviour {
                 }
                 else
                 {
-                    state = lastState;
+                    state = EnemyState.investigating;
                 }
                 break;
 
 			default:
-				Debug.LogError("Unkown AI State for " + gameObject.name);
+				//Debug.LogError("Unkown AI State for " + gameObject.name);
 				break;
 		}
 
@@ -262,16 +263,16 @@ public class EnemyController : MonoBehaviour {
 
     public void Stun()
     {
+        print("I'M STUNNED");
+        destinationSetter.target = transform;
+        if (state == EnemyState.capturing)
+            EelController.instance.can_input = true;
         timeSpentCapturing = 0;
         timeSpentAtWaypoint = 0;
         timeSpentInvestigating = 0;
         timeSpentLookingInDirection = 0;
         timeSpentChasing = 0f;
         timeSincePlayerLastSeen = 0f;
-        if (state != EnemyState.stunned)
-        {
-            lastState = state;
-        }
         timeSpentStunned = 0;
         state = EnemyState.stunned;
     }
@@ -280,7 +281,6 @@ public class EnemyController : MonoBehaviour {
     {
         if (collider.CompareTag("Player"))
         {
-            print("Gotem");
             playerTouches++;
         }
     }
@@ -289,7 +289,6 @@ public class EnemyController : MonoBehaviour {
     {
         if (collider.CompareTag("Player"))
         {
-            print("Gotem");
             playerTouches--;
         }
     }
@@ -301,6 +300,7 @@ public enum EnemyState {
 	chasing,
 	capturing,
 	stunned,
+    none
 }
 /*
 Patrol

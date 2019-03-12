@@ -14,11 +14,14 @@ public class EnemySight : MonoBehaviour {
 	RaycastHit2D[] hits;
 	int rayCount;
 
+    int layermask;
+
 	private void Start () {
 		rayCount = GameManager.playerPieces.Length;
 		hits = new RaycastHit2D[rayCount];
 		halfFieldOfViewAngle = fieldOfViewAngle / 2f;
-	}
+        layermask = ~(1 << 11);
+    }
 
 	private void Update () {
 		playerInSight = false;
@@ -28,7 +31,7 @@ public class EnemySight : MonoBehaviour {
 			float angle = Vector3.Angle(direction, transform.up);
 
 			if (angle < halfFieldOfViewAngle) {
-				hits[i] = Physics2D.Raycast(transform.position, direction, maxDistance);
+				hits[i] = Physics2D.Raycast(transform.position, direction, maxDistance, layermask);
 				if (hits[i]) {
 					if (hits[i].transform.CompareTag("Player")) {
 						if (hits[i].transform.GetComponent<EelMovement>()) {
