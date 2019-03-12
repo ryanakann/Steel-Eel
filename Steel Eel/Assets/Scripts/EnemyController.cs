@@ -247,7 +247,6 @@ public class EnemyController : MonoBehaviour {
                 }
                 else
                 {
-                    investigatePoint = transform;
                     state = EnemyState.patrolling;
                 }
                 break;
