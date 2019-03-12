@@ -24,7 +24,7 @@ public class EelBody : MonoBehaviour
 
         foreach (Transform t in transform)
         {
-            //t.gameObject.AddComponent<EelSlice>().body = this;
+            t.gameObject.AddComponent<EelSlice>().body = this;
             children.Add(t.gameObject);
         }
 
@@ -44,4 +44,26 @@ public class EelBody : MonoBehaviour
             lr.SetPosition(i, children[i].transform.position);
         }
     }
+
+    #region COLLISION
+    public void TriggerEnter(Collider2D collider)
+    {
+       
+    }
+
+    public void TriggerExit(Collider2D collider)
+    {
+
+    }
+
+    public void CollisionEnter(Collision2D collision)
+    {
+
+    }
+
+    public void CollisionExit(Collision2D collision)
+    {
+
+    }
+    #endregion
 }
