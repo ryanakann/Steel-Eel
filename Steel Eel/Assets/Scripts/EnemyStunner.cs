@@ -35,7 +35,6 @@ public class EnemyStunner : MonoBehaviour, Interactable
         if (CD_timer <= 0)
         {
             CD_timer = interactionCD;
-            print("FUCKING REEEE");
             enemy.Stun();
         }
     }

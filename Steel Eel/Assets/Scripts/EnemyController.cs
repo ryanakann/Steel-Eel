@@ -265,7 +265,6 @@ public class EnemyController : MonoBehaviour {
 
     public void Stun()
     {
-        print("I'M STUNNED");
         destinationSetter.target = transform;
         if (state == EnemyState.capturing)
             EelController.instance.can_input = true;

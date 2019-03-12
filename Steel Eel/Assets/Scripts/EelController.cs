@@ -80,7 +80,6 @@ public class EelController : MonoBehaviour
     void FireEvent()
     {
         Interactable i = Interaction();
-        print(i);
         if (i != null)
         {
             InteractEvent?.Invoke(i);
@@ -93,20 +92,18 @@ public class EelController : MonoBehaviour
 
     Interactable Interaction()
     {
-        print("AAAA");
-        RaycastHit2D hit = Physics2D.Raycast(main.ScreenToWorldPoint(GetPointerPosition()), Vector2.zero, 1f, layermask);
+        RaycastHit2D hit = Physics2D.Raycast(main.ScreenToWorldPoint(GetPointerPosition(true)), Vector2.zero, 1f, layermask);
 
         if (hit)
         {
-            print("WE HIT EM " + hit.collider.name);
             return hit.collider.GetComponent<Interactable>();
         }
         return null;
     }
 
-    Vector3 GetPointerPosition()
+    Vector3 GetPointerPosition(bool pass = false)
     {
-        if (!can_input)
+        if (!can_input && !pass)
             return new Vector3(0, 0, -500);
 
 #if UNITY_STANDALONE_WIN
