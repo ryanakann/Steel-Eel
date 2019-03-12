@@ -80,7 +80,6 @@ public class EelController : MonoBehaviour
     void FireEvent()
     {
         Interactable i = Interaction();
-        print(i);
         if (i != null)
         {
             InteractEvent?.Invoke(i);
