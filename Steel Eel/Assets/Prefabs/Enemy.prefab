@@ -230,10 +230,10 @@ MonoBehaviour:
   speed: 4
   timeSpentNotMoving: 0
   state: 0
-  lastState: 0
   waypoints: []
   player: {fileID: 0}
   currentWaypoint: {fileID: 0}
+  stunDuration: 5
 --- !u!114 &998185380901578369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 998185381804964216}
   - component: {fileID: 998185381804964217}
+  - component: {fileID: 7497367094600675105}
   m_Layer: 11
   m_Name: GameObject
   m_TagString: Untagged
@@ -318,3 +319,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.8
+--- !u!114 &7497367094600675105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998185381804964219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57c39113ac04234584fb7c2073cc53b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
