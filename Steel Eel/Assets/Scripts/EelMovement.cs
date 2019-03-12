@@ -17,6 +17,9 @@ public class EelMovement : MonoBehaviour {
 	[SerializeField] private float currentDashCooldown;
 
 	private Ray mouseScreenRay;
+	private Vector3 mouseScreenPosition;
+	private Vector3 mouseScreenPositionLF;
+	[SerializeField] private float mouseSpeedMultiplier;
 	private float mouseRayDistance;
 	private Vector2 mouseWorldPosition;
 	private Camera mainCamera;
@@ -33,13 +36,14 @@ public class EelMovement : MonoBehaviour {
 		playArea = new Plane(Vector3.forward, 0f); //Assumes player always at z = 0
 		rb = GetComponent<Rigidbody2D>();
         EelController.instance.DashEvent += Dash;
+		mouseSpeedMultiplier = 0f;
 	}
 
 	private void FixedUpdate () {
 		GetPointerPosition();
 
 		if (targetDirection.magnitude > 0.2f) {
-			rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref refVelocity, 1 / sensitivity);
+			rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity * (1 + mouseSpeedMultiplier), ref refVelocity, 1 / sensitivity);
 		}
 
 		if (currentDashCooldown > 0) {
@@ -48,6 +52,10 @@ public class EelMovement : MonoBehaviour {
         else {
             currentDashCooldown = 0;
         }
+
+		print("Difference: " + (mouseScreenPosition - mouseScreenPositionLF).magnitude);
+		mouseSpeedMultiplier = Mathf.Clamp((mouseScreenPosition - mouseScreenPositionLF).magnitude / 10f, 0f, 2f);
+		mouseScreenPositionLF = mouseScreenPosition;
 	}
 
 	private void Dash () {
@@ -58,6 +66,8 @@ public class EelMovement : MonoBehaviour {
 	}
 
 	private void GetPointerPosition () {
+		mouseScreenPosition = Input.mousePosition;
+
         Vector3 screen_pos = EelController.instance.mouse_position;
         if (screen_pos.z == -500)
         {
