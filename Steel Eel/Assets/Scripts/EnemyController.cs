@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour {
 	private float maxTimeSpentNotMoving = 6f;
 	private Vector3 positionLastFrame;
 
-	public EnemyState state;
+	public EnemyState state, lastState;
 	private Pathfinding.AIDestinationSetter destinationSetter;
 	private EnemySight lineOfSight;
 
@@ -41,13 +41,17 @@ public class EnemyController : MonoBehaviour {
 	private float timeSincePlayerLastSeen;
 	private float maxTimeSincePlayerLastSeen = 3f;
 
-	//Capturing
+    //Capturing
+    private int playerTouches;
 	private float timeSpentCapturing;
 	private float captureDuration = 2f;
 
-	//Stunned
+    //Stunned
+    private bool stunned;
 	private float timeSpentStunned;
 	private float stunDuration = 5f;
+
+    private float arrivalDistance = 0.04f;
 
 	private void Awake () {
 		UpdateWaitpoints();
@@ -79,6 +83,7 @@ public class EnemyController : MonoBehaviour {
 		timeSpentStunned = 0f;
 
 		state = EnemyState.patrolling;
+        lastState = state;
 
 		investigatePoint = new GameObject("InvestigatePoint").transform;
 		transform.SetParent(transform);
@@ -169,7 +174,7 @@ public class EnemyController : MonoBehaviour {
 					state = EnemyState.investigating;
 				}
 
-				if ((investigatePoint.position - transform.position).sqrMagnitude < 0.2f * 0.2f) {
+				if ((investigatePoint.position - transform.position).sqrMagnitude < arrivalDistance) {
 					timeSpentInvestigating += Time.deltaTime;
 					//destinationSetter.target = null;
 
@@ -199,7 +204,7 @@ public class EnemyController : MonoBehaviour {
 				if (canSeePlayer) {
 					timeSincePlayerLastSeen = 0f;
 
-					if ((transform.position - player.position).sqrMagnitude < 0.2f * 0.2f) {
+					if (playerTouches > 0) {
 						timeSpentCapturing = 0f;
 						state = EnemyState.capturing;
 					}
@@ -218,18 +223,23 @@ public class EnemyController : MonoBehaviour {
 
 			case EnemyState.capturing:
                 EelController.instance.can_input = false;
-                FadeController.instance.FadeOut(0.16f);
                 if (timeSpentCapturing > captureDuration) {
-                    state = EnemyState.stunned;
+                    GameManager.instance.EndGame();
 				}
-
-				//STUN CONDITION
 
 				timeSpentCapturing += Time.deltaTime;
 				break;
 
 			case EnemyState.stunned:
-				break;
+                if (timeSpentStunned < stunDuration)
+                {
+                    timeSpentStunned += Time.deltaTime;
+                }
+                else
+                {
+                    state = lastState;
+                }
+                break;
 
 			default:
 				Debug.LogError("Unkown AI State for " + gameObject.name);
@@ -249,6 +259,40 @@ public class EnemyController : MonoBehaviour {
 
 		positionLastFrame = transform.position;
 	}
+
+    public void Stun()
+    {
+        timeSpentCapturing = 0;
+        timeSpentAtWaypoint = 0;
+        timeSpentInvestigating = 0;
+        timeSpentLookingInDirection = 0;
+        timeSpentChasing = 0f;
+        timeSincePlayerLastSeen = 0f;
+        if (state != EnemyState.stunned)
+        {
+            lastState = state;
+        }
+        timeSpentStunned = 0;
+        state = EnemyState.stunned;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Player"))
+        {
+            print("Gotem");
+            playerTouches++;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Player"))
+        {
+            print("Gotem");
+            playerTouches--;
+        }
+    }
 }
 
 public enum EnemyState {
