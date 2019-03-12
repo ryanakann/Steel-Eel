@@ -81,14 +81,15 @@ public class EelController : MonoBehaviour
 
     Interactable Interaction()
     {
-        RaycastHit2D hit = Physics2D.Raycast(main.ScreenToWorldPoint(mouse_position), Vector2.zero);
-        print(hit.point);
-        if (hit.collider != null)
+        RaycastHit2D hit = Physics2D.Raycast(main.ScreenToWorldPoint(GetPointerPosition()), Vector2.zero);
+
+        print(main.ScreenToWorldPoint(GetPointerPosition()));
+        print(GetPointerPosition());
+
+        if (hit)
         {
-            print("We got one");
-            return GetComponent<Interactable>();
+            return hit.collider.GetComponent<Interactable>();
         }
-        print("nah, fam");
         return null;
     }
 
