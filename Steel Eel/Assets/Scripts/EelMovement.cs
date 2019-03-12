@@ -38,7 +38,9 @@ public class EelMovement : MonoBehaviour {
 	private void FixedUpdate () {
 		GetMousePosition();
 
-		rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref refVelocity, 1 / sensitivity);
+		if (targetDirection.magnitude > 0.2f) {
+			rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref refVelocity, 1 / sensitivity);
+		}
 
 		if (currentDashCooldown <= 0) {
 			if (Input.GetMouseButtonDown(0)) {
