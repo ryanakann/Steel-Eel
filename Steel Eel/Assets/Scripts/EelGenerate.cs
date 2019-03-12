@@ -27,7 +27,7 @@ public class EelGenerate : MonoBehaviour
             radius = child.GetComponent<CircleCollider2D>().radius;
         }
 
-        radius *= 2;
+        radius *= 1.9f;
         offset = radius;
         last_slice = child;
 
