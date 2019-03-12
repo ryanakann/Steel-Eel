@@ -26,6 +26,9 @@ public class EnemyController : MonoBehaviour {
 	private float distanceToInvestigatePoint;
 	private float timeSpentInvestigating;
 	private float maxTimeSpentInvestigating = 5f;
+	private float timeSpentLookingInDirection;
+	private bool switchDirections;
+	private bool switchDirectionsLastFrame;
 	private Transform investigatePoint;
 
 	//Chasing
@@ -42,14 +45,16 @@ public class EnemyController : MonoBehaviour {
 	private float timeSpentStunned;
 	private float stunDuration = 5f;
 
+	private void Awake () {
+		UpdateWaitpoints();
+	}
 
 	private void Start () {
-		UpdateWaitpoints();
 		distanceToNextWaypoint = Mathf.Infinity;
 		timeSpentAtWaypoint = 0f;
 		waypointIndex = 1;
 
-		if (waypoints.Length < 2) {
+		if (waypoints.Length >= 2) {
 			currentWaypoint = waypoints[waypointIndex];
 		} else {
 			currentWaypoint = null;
@@ -57,6 +62,9 @@ public class EnemyController : MonoBehaviour {
 
 		distanceToInvestigatePoint = Mathf.Infinity;
 		timeSpentInvestigating = 0f;
+		timeSpentLookingInDirection = 0f;
+		switchDirections = false;
+		switchDirectionsLastFrame = switchDirections;
 
 		distanceToPlayer = Mathf.Infinity;
 		timeSpentChasing = 0f;
@@ -72,7 +80,7 @@ public class EnemyController : MonoBehaviour {
 		transform.SetParent(transform);
 
 		destinationSetter = GetComponent<Pathfinding.AIDestinationSetter>();
-		destinationSetter.target = null;
+		destinationSetter.target = currentWaypoint;
 
 		lineOfSight = GetComponent<EnemySight>();
 
@@ -85,7 +93,7 @@ public class EnemyController : MonoBehaviour {
 
 	void OnDrawGizmos () {
 		if (destinationSetter && destinationSetter.target) {
-			Gizmos.DrawSphere(destinationSetter.target.position, 2f);
+			Gizmos.DrawWireSphere(destinationSetter.target.position, 2f);
 		}
 	}
 
@@ -97,6 +105,7 @@ public class EnemyController : MonoBehaviour {
 			waypointList.RemoveAt(0);
 			waypoints = waypointList.ToArray();
 		}
+		parent.SetParent(null);
 	}
 
 	private void Update () {
@@ -155,7 +164,22 @@ public class EnemyController : MonoBehaviour {
 
 				if ((investigatePoint.position - transform.position).sqrMagnitude < 0.2f * 0.2f) {
 					timeSpentInvestigating += Time.deltaTime;
+					//destinationSetter.target = null;
+
+					if (timeSpentLookingInDirection > maxTimeSpentInvestigating / 2.5f) {
+						switchDirections = !switchDirections;
+						timeSpentLookingInDirection = 0f;
+					} else {
+						timeSpentLookingInDirection += Time.deltaTime;
+					}
 				}
+
+				if (switchDirections != switchDirectionsLastFrame) {
+					Vector3 position = (Vector3)Random.insideUnitCircle.normalized / 4f + transform.position;
+					investigatePoint.position = position;
+				}
+
+				switchDirectionsLastFrame = switchDirections;
 
 				if (timeSpentInvestigating > maxTimeSpentInvestigating) {
 					destinationSetter.target = null;
