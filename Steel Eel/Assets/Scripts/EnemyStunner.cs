@@ -12,6 +12,8 @@ public class EnemyStunner : MonoBehaviour, Interactable
 
     public GameObject circle;
 
+    bool color_flipped;
+
     private void Start()
     {
         enemy = GetComponentInParent<EnemyController>();
@@ -25,7 +27,13 @@ public class EnemyStunner : MonoBehaviour, Interactable
     {
         if (playerTouches > 0)
         {
+            if (CD_timer <= 0 && !color_flipped)
+            {
+                color_flipped = true;
+                circle.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0, 0.5f);
+            }
             circle.SetActive(true);
+            
         }
         else
         {
@@ -42,6 +50,8 @@ public class EnemyStunner : MonoBehaviour, Interactable
     {
         if (CD_timer <= 0 && playerTouches > 0)
         {
+            color_flipped = false;
+            circle.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.5f);
             CD_timer = interactionCD;
             enemy.Stun();
         }
