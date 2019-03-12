@@ -225,7 +225,7 @@ HingeJoint2D:
   m_GameObject: {fileID: 79311818866625352}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 8481769010752078924}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -256,8 +256,8 @@ MonoBehaviour:
   lookAtMouse: 1
   sensitivity: 1
   maxMouseDistance: 3
-  speedRange: {x: 0, y: 0}
-  dashSpeed: 5
+  speedRange: {x: 0, y: 3}
+  dashSpeed: 10
   maxDashCooldown: 2
   currentDashCooldown: 0
 --- !u!1 &2987319555054724517
@@ -339,7 +339,7 @@ HingeJoint2D:
   m_GameObject: {fileID: 2987319555054724517}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 7942443954363014615}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -433,7 +433,7 @@ HingeJoint2D:
   m_GameObject: {fileID: 5639072869498983042}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 8086165433270730908}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -527,7 +527,7 @@ HingeJoint2D:
   m_GameObject: {fileID: 6781886318843979930}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 8100832947675661120}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -621,7 +621,7 @@ HingeJoint2D:
   m_GameObject: {fileID: 7497628471052585379}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 8100832947675661120}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -715,7 +715,7 @@ HingeJoint2D:
   m_GameObject: {fileID: 8320212961373906345}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 8070030745013777081}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
