@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour {
 
 	[SerializeField] private Transform[] waypoints;
 
-	public Transform player;
+	public Transform player, playerTail;
 
 	//Patrolling
 	private float distanceToNextWaypoint;
@@ -92,11 +92,12 @@ public class EnemyController : MonoBehaviour {
 
 		lineOfSight = GetComponent<EnemySight>();
 
-		if (player == null) {
-			if ((player = GameObject.FindWithTag("Player").transform) == null) {
-				Debug.LogError("AI cannot function as Player reference is null.");
-			}
+		if (!player) {
+            player = GameManager.playerHead.transform;
 		}
+
+        if (!playerTail)
+            playerTail = GameManager.playerTail.transform;
 
 		positionLastFrame = transform.position;
 	}
@@ -198,7 +199,7 @@ public class EnemyController : MonoBehaviour {
 				break;
 
 			case EnemyState.chasing:
-				destinationSetter.target = player;
+                destinationSetter.target = playerTail;
 				if (canSeePlayer) {
 					timeSincePlayerLastSeen = 0f;
 
@@ -238,6 +239,7 @@ public class EnemyController : MonoBehaviour {
                 }
                 else
                 {
+                    investigatePoint = transform;
                     state = EnemyState.investigating;
                 }
                 break;

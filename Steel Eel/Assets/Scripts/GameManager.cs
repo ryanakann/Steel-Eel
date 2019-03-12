@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 	public static GameManager instance;
 
-	public static GameObject playerHead;
+	public static GameObject playerHead, playerTail;
 	public static GameObject[] playerPieces;
 
 	private void Awake () {
@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
 
 		playerHead = FindObjectOfType<EelMovement>().gameObject;
 		playerPieces = GameObject.FindGameObjectsWithTag("Player");
+        playerTail = playerPieces[playerPieces.Length-1];
 	}
 
     private void Start()
@@ -31,6 +32,6 @@ public class GameManager : MonoBehaviour {
 
     public void EndGame()
     {
-        //FadeController.instance.FadeOut();
+        FadeController.instance.FadeOut();
     }
 }
