@@ -49,7 +49,6 @@ public class EelBody : MonoBehaviour
 
     void Interact(Interactable i)
     {
-        print("GOOGOO GAGA");
         i.Interact();
     }
 
