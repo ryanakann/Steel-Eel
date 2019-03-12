@@ -20,6 +20,7 @@ public class EelBody : MonoBehaviour
     {
         mover = GetComponentInChildren<EelMovement>();
         lr = GetComponent<LineRenderer>();
+        lr.useWorldSpace = true;
 
         foreach (Transform t in transform)
         {
