@@ -41,7 +41,7 @@ public class EelBody : MonoBehaviour
 
     void UpdateLine()
     {
-        for (int i = 0; i < children.Count; i++)
+        for (int i = 0; i < children.Count-1; i++)
         {
             lr.SetPosition(i, children[i].transform.position);
         }

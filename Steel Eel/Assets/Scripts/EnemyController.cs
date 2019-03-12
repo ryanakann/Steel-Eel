@@ -57,50 +57,58 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	private void Start () {
-		distanceToNextWaypoint = Mathf.Infinity;
-		timeSpentAtWaypoint = 0f;
-		waypointIndex = 1;
+        Setup();
+	}
 
-		if (waypoints.Length >= 2) {
-			currentWaypoint = waypoints[waypointIndex];
-		} else {
-			currentWaypoint = null;
-		}
+    void Setup(bool first = true)
+    {
+        distanceToNextWaypoint = Mathf.Infinity;
+        timeSpentAtWaypoint = 0f;
+        waypointIndex = 1;
 
-		distanceToInvestigatePoint = Mathf.Infinity;
-		timeSpentInvestigating = 0f;
-		timeSpentLookingInDirection = 0f;
-		switchDirections = false;
-		switchDirectionsLastFrame = switchDirections;
+        if (waypoints.Length >= 2)
+        {
+            currentWaypoint = waypoints[waypointIndex];
+        }
+        else
+        {
+            currentWaypoint = null;
+        }
 
-		distanceToPlayer = Mathf.Infinity;
-		timeSpentChasing = 0f;
-		timeSincePlayerLastSeen = 0f;
+        distanceToInvestigatePoint = Mathf.Infinity;
+        timeSpentInvestigating = 0f;
+        timeSpentLookingInDirection = 0f;
+        switchDirections = false;
+        switchDirectionsLastFrame = switchDirections;
 
-		timeSpentCapturing = 0f;
+        distanceToPlayer = Mathf.Infinity;
+        timeSpentChasing = 0f;
+        timeSincePlayerLastSeen = 0f;
 
-		timeSpentStunned = 0f;
+        timeSpentCapturing = 0f;
 
-		state = EnemyState.patrolling;
+        timeSpentStunned = 0f;
 
-		investigatePoint = new GameObject("InvestigatePoint").transform;
-		transform.SetParent(transform);
+        state = EnemyState.patrolling;
+        if (first)
+            investigatePoint = new GameObject("InvestigatePoint").transform;
 
-		destinationSetter = GetComponent<Pathfinding.AIDestinationSetter>();
-		destinationSetter.target = currentWaypoint;
-		GetComponent<Pathfinding.AIPath>().maxSpeed = speed;
+        destinationSetter = GetComponent<Pathfinding.AIDestinationSetter>();
+        destinationSetter.target = currentWaypoint;
+        GetComponent<Pathfinding.AIPath>().maxSpeed = speed;
 
-		lineOfSight = GetComponent<EnemySight>();
+        lineOfSight = GetComponent<EnemySight>();
 
-		if (!player) {
+        if (!player)
+        {
             player = GameManager.playerHead.transform;
-		}
+        }
 
         if (!playerTail)
             playerTail = GameManager.playerTail.transform;
 
-		positionLastFrame = transform.position;
-	}
+        positionLastFrame = transform.position;
+    }
 
 	void OnDrawGizmos () {
 		if (destinationSetter && destinationSetter.target) {
@@ -240,7 +248,7 @@ public class EnemyController : MonoBehaviour {
                 else
                 {
                     investigatePoint = transform;
-                    state = EnemyState.investigating;
+                    state = EnemyState.patrolling;
                 }
                 break;
 
@@ -265,16 +273,12 @@ public class EnemyController : MonoBehaviour {
 
     public void Stun()
     {
-        destinationSetter.target = transform;
         if (state == EnemyState.capturing)
             EelController.instance.can_input = true;
-        timeSpentCapturing = 0;
-        timeSpentAtWaypoint = 0;
-        timeSpentInvestigating = 0;
-        timeSpentLookingInDirection = 0;
-        timeSpentChasing = 0f;
-        timeSincePlayerLastSeen = 0f;
-        timeSpentStunned = 0;
+
+        Setup(false);
+
+        destinationSetter.target = transform;
         state = EnemyState.stunned;
     }
 

@@ -10,10 +10,14 @@ public class EnemyStunner : MonoBehaviour, Interactable
 
     EnemyController enemy;
 
+    public GameObject circle;
+
     private void Start()
     {
         enemy = GetComponentInParent<EnemyController>();
         interactionCD = enemy.stunDuration;
+
+        circle = transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -21,7 +25,11 @@ public class EnemyStunner : MonoBehaviour, Interactable
     {
         if (playerTouches > 0)
         {
-            //display circle
+            circle.SetActive(true);
+        }
+        else
+        {
+            circle.SetActive(false);
         }
 
         if (CD_timer > 0)
@@ -32,7 +40,7 @@ public class EnemyStunner : MonoBehaviour, Interactable
 
     public void Interact()
     {
-        if (CD_timer <= 0)
+        if (CD_timer <= 0 && playerTouches > 0)
         {
             CD_timer = interactionCD;
             enemy.Stun();
