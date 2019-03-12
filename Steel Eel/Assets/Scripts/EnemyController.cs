@@ -12,14 +12,15 @@ public class EnemyController : MonoBehaviour {
 	private Pathfinding.AIDestinationSetter destinationSetter;
 	private EnemySight lineOfSight;
 
-	private Transform[] waypoints;
+	[SerializeField] private Transform[] waypoints;
 
 	public Transform player;
 
 	//Patrolling
 	private float distanceToNextWaypoint;
 	private float timeSpentAtWaypoint;
-	private float waypointIndex;
+	private int waypointIndex;
+	[SerializeField] private Transform currentWaypoint;
 
 	//Investigating
 	private float distanceToInvestigatePoint;
@@ -44,10 +45,15 @@ public class EnemyController : MonoBehaviour {
 
 	private void Start () {
 		UpdateWaitpoints();
-
 		distanceToNextWaypoint = Mathf.Infinity;
 		timeSpentAtWaypoint = 0f;
-		waypointIndex = 0;
+		waypointIndex = 1;
+
+		if (waypoints.Length < 2) {
+			currentWaypoint = waypoints[waypointIndex];
+		} else {
+			currentWaypoint = null;
+		}
 
 		distanceToInvestigatePoint = Mathf.Infinity;
 		timeSpentInvestigating = 0f;
@@ -77,10 +83,19 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
+	void OnDrawGizmos () {
+		if (destinationSetter && destinationSetter.target) {
+			Gizmos.DrawSphere(destinationSetter.target.position, 2f);
+		}
+	}
+
 	void UpdateWaitpoints () {
 		Transform parent;
+		waypoints = new Transform[0];
 		if ((parent = transform.Find("Waypoints")) != null) {
-			waypoints = parent.GetComponentsInChildren<Transform>();
+			List<Transform> waypointList = new List<Transform>(parent.GetComponentsInChildren<Transform>());
+			waypointList.RemoveAt(0);
+			waypoints = waypointList.ToArray();
 		}
 	}
 
@@ -111,6 +126,15 @@ public class EnemyController : MonoBehaviour {
 					timeSpentInvestigating = 0f;
 					state = EnemyState.investigating;
 				}
+
+				if (currentWaypoint == null) break;
+
+				distanceToNextWaypoint = (currentWaypoint.position - transform.position).sqrMagnitude;
+				destinationSetter.target = currentWaypoint;
+
+				if (distanceToNextWaypoint < 0.2f * 0.2f) {
+					currentWaypoint = waypoints[++waypointIndex % waypoints.Length];
+				}
 				break;
 
 			case EnemyState.investigating:
@@ -135,6 +159,7 @@ public class EnemyController : MonoBehaviour {
 
 				if (timeSpentInvestigating > maxTimeSpentInvestigating) {
 					destinationSetter.target = null;
+					state = EnemyState.patrolling;
 				}
 				break;
 
