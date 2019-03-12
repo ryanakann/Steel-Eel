@@ -10,12 +10,17 @@ public class EelGenerate : MonoBehaviour
 
     public int segments = 5;
 
-    private GameObject last_slice;
+    private GameObject child, last_slice;
 
     // Start is called before the first frame update
     void Start()
     {
-        GameObject child = transform.GetChild(0).gameObject;
+        Generate();
+    }
+
+    void Generate()
+    {
+        child = transform.GetChild(0).gameObject;
 
         if (radius == -1)
         {
@@ -28,14 +33,14 @@ public class EelGenerate : MonoBehaviour
 
         while (segments > 0)
         {
-            GenerateSlice(child);
+            GenerateSlice();
             segments--;
         }
 
         child.AddComponent<EelMovement>();
     }
 
-    void GenerateSlice(GameObject child)
+    void GenerateSlice()
     {
         GameObject slice = Instantiate(child, transform);
         slice.transform.Translate(new Vector2(0, -offset));
