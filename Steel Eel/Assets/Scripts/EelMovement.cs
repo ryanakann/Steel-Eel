@@ -4,7 +4,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EelMovement : MonoBehaviour {
-	public bool showGizmos = true;
 
 	[Header("Mouse Properties")]
 	public bool lookAtMouse = true;
@@ -33,50 +32,49 @@ public class EelMovement : MonoBehaviour {
 		mainCamera = Camera.main;
 		playArea = new Plane(Vector3.forward, 0f); //Assumes player always at z = 0
 		rb = GetComponent<Rigidbody2D>();
+        EelController.instance.DashEvent += Dash;
 	}
 
 	private void FixedUpdate () {
-		GetMousePosition();
+		GetPointerPosition();
 
 		if (targetDirection.magnitude > 0.2f) {
 			rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref refVelocity, 1 / sensitivity);
 		}
 
-		if (currentDashCooldown <= 0) {
-			if (Input.GetMouseButtonDown(0)) {
-				Dash();
-			}
-			currentDashCooldown = 0;
-		} else {
+		if (currentDashCooldown > 0) {
 			currentDashCooldown -= Time.fixedDeltaTime;
 		}
+        else {
+            currentDashCooldown = 0;
+        }
 	}
 
 	private void Dash () {
-		rb.velocity = (mouseWorldPosition - (Vector2)transform.position).normalized * dashSpeed;
-		currentDashCooldown = maxDashCooldown;
+        if (currentDashCooldown <= 0) {
+            rb.velocity = (mouseWorldPosition - (Vector2)transform.position).normalized * dashSpeed;
+            currentDashCooldown = maxDashCooldown;
+        }
 	}
 
-	private void GetMousePosition () {
-		mouseScreenRay = mainCamera.ScreenPointToRay(Input.mousePosition);
+	private void GetPointerPosition () {
+        Vector3 screen_pos = EelController.instance.mouse_position;
+        if (screen_pos.z == -500)
+        {
+            screen_pos = mainCamera.WorldToScreenPoint(transform.position);
+        }
+        mouseScreenRay = mainCamera.ScreenPointToRay(screen_pos);
 
-		if (playArea.Raycast(mouseScreenRay, out mouseRayDistance)) {
-			mouseWorldPosition = mouseScreenRay.GetPoint(mouseRayDistance);
-			targetDirection = (mouseWorldPosition - (Vector2)transform.position) / maxMouseDistance;
+        if (playArea.Raycast(mouseScreenRay, out mouseRayDistance)) {
+            mouseWorldPosition = mouseScreenRay.GetPoint(mouseRayDistance);
+            targetDirection = (mouseWorldPosition - (Vector2)transform.position) / maxMouseDistance;
 
-			if (targetDirection.sqrMagnitude > 1f) {
-				targetDirection.Normalize();
-			}
+            if (targetDirection.sqrMagnitude > 1f) {
+                targetDirection.Normalize();
+            }
 
-			targetSpeed = Mathf.Lerp(speedRange.x, speedRange.y, targetDirection.magnitude);
-			targetVelocity = targetDirection.normalized * targetSpeed;
-		}
-	}
-
-	private void OnDrawGizmos () {
-		if (!showGizmos) return;
-
-		Gizmos.color = Color.white;
-		Gizmos.DrawLine(transform.position, transform.position + (Vector3)targetVelocity);
-	}
+            targetSpeed = Mathf.Lerp(speedRange.x, speedRange.y, targetDirection.magnitude);
+            targetVelocity = targetDirection.normalized * targetSpeed;
+        }
+    }
 }
