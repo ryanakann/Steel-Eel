@@ -7,6 +7,10 @@ public class EnemyController : MonoBehaviour {
 	public bool canSeePlayerHead;
 	public bool soundHeard;
 	public bool movingObjectSeen;
+	public float speed = 2f;
+	[SerializeField] private float timeSpentNotMoving;
+	private float maxTimeSpentNotMoving = 6f;
+	private Vector3 positionLastFrame;
 
 	public EnemyState state;
 	private Pathfinding.AIDestinationSetter destinationSetter;
@@ -81,6 +85,7 @@ public class EnemyController : MonoBehaviour {
 
 		destinationSetter = GetComponent<Pathfinding.AIDestinationSetter>();
 		destinationSetter.target = currentWaypoint;
+		GetComponent<Pathfinding.AIPath>().maxSpeed = speed;
 
 		lineOfSight = GetComponent<EnemySight>();
 
@@ -89,6 +94,8 @@ public class EnemyController : MonoBehaviour {
 				Debug.LogError("AI cannot function as Player reference is null.");
 			}
 		}
+
+		positionLastFrame = transform.position;
 	}
 
 	void OnDrawGizmos () {
@@ -228,6 +235,19 @@ public class EnemyController : MonoBehaviour {
 				Debug.LogError("Unkown AI State for " + gameObject.name);
 				break;
 		}
+
+		if (timeSpentNotMoving < maxTimeSpentNotMoving) {
+			if ((transform.position - positionLastFrame).magnitude < 0.25f * speed * Time.deltaTime) {
+				timeSpentNotMoving += Time.deltaTime;
+			} else {
+				timeSpentNotMoving = 0f;
+			}
+		} else {
+			timeSpentNotMoving = 0f;
+			state = EnemyState.patrolling;
+		}
+
+		positionLastFrame = transform.position;
 	}
 }
 
