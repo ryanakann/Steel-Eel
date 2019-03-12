@@ -13,6 +13,8 @@ public class EelController : MonoBehaviour
     public DashEvent DashEvent;
     public ActionEvent InteractEvent;
 
+    Camera main;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -24,6 +26,8 @@ public class EelController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        main = Camera.main;
     }
 
     // Update is called once per frame
@@ -77,11 +81,14 @@ public class EelController : MonoBehaviour
 
     Interactable Interaction()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(mouse_position), Vector2.zero);
+        RaycastHit2D hit = Physics2D.Raycast(main.ScreenToWorldPoint(mouse_position), Vector2.zero);
+        print(hit.point);
         if (hit.collider != null)
         {
+            print("We got one");
             return GetComponent<Interactable>();
         }
+        print("nah, fam");
         return null;
     }
 

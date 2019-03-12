@@ -29,6 +29,8 @@ public class EelBody : MonoBehaviour
         }
 
         lr.positionCount = children.Count;
+
+        EelController.instance.InteractEvent += Interact;
     }
 
     // Update is called once per frame
@@ -43,6 +45,11 @@ public class EelBody : MonoBehaviour
         {
             lr.SetPosition(i, children[i].transform.position);
         }
+    }
+
+    void Interact(Interactable i)
+    {
+        print("Interaaaact");
     }
 
     #region COLLISION
