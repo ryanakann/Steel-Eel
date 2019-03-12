@@ -18,4 +18,19 @@ public class GameManager : MonoBehaviour {
 		playerHead = FindObjectOfType<EelMovement>().gameObject;
 		playerPieces = GameObject.FindGameObjectsWithTag("Player");
 	}
+
+    private void Start()
+    {
+        
+    }
+
+    public void StartGame()
+    {
+
+    }
+
+    public void EndGame()
+    {
+        FadeController.instance.FadeIn();
+    }
 }

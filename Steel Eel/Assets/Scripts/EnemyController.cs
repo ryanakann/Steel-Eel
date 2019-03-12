@@ -210,8 +210,10 @@ public class EnemyController : MonoBehaviour {
 				break;
 
 			case EnemyState.capturing:
-				if (timeSpentCapturing > captureDuration) {
-					//GAME OVER
+                EelController.instance.can_input = false;
+                FadeController.instance.FadeOut(0.16f);
+                if (timeSpentCapturing > captureDuration) {
+                    state = EnemyState.stunned;
 				}
 
 				//STUN CONDITION

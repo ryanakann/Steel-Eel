@@ -15,6 +15,8 @@ public class EelController : MonoBehaviour
 
     Camera main;
 
+    public bool can_input;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -26,8 +28,14 @@ public class EelController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+    
         main = Camera.main;
+
+        FadeController.instance.FadeInStartedEvent += delegate { can_input = false; };
+        FadeController.instance.FadeInCompletedEvent += delegate { can_input = true; };
+        FadeController.instance.FadeOutStartedEvent += delegate { can_input = false; };
+
+        can_input = true;
     }
 
     // Update is called once per frame
@@ -71,20 +79,17 @@ public class EelController : MonoBehaviour
         Interactable i = Interaction();
         if (i != null)
         {
-            InteractEvent(i);
+            InteractEvent?.Invoke(i);
         }
-        else
+        else if (can_input)
         {
-            DashEvent();
+            DashEvent?.Invoke();
         }
     }
 
     Interactable Interaction()
     {
         RaycastHit2D hit = Physics2D.Raycast(main.ScreenToWorldPoint(GetPointerPosition()), Vector2.zero);
-
-        print(main.ScreenToWorldPoint(GetPointerPosition()));
-        print(GetPointerPosition());
 
         if (hit)
         {
@@ -93,8 +98,11 @@ public class EelController : MonoBehaviour
         return null;
     }
 
-    Vector2 GetPointerPosition()
+    Vector3 GetPointerPosition()
     {
+        if (!can_input)
+            return new Vector3(0, 0, -500);
+
 #if UNITY_STANDALONE_WIN
         return Input.mousePosition;
 #endif
