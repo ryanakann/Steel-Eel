@@ -7195,7 +7195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f045d3c92e8b24847a4266b681e631e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newGameSceneName: Level Test
+  newGameSceneName: Level1
   quickSaveSlotID: 6
   MainOptionsPanel: {fileID: 443590089}
   StartGameOptionsPanel: {fileID: 1502024977}
