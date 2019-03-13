@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GoalTrigger : MonoBehaviour
 {
+
+    bool triggered;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +16,13 @@ public class GoalTrigger : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (!triggered && collider.CompareTag("Player"))
+        {
+            GameManager.instance.EndGame(true);
+        }
     }
 }

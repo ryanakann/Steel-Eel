@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
 	public static GameObject playerHead, playerTail;
 	public static GameObject[] playerPieces;
 
+    bool gameover;
+
 	private void Awake () {
 		if (instance == null) {
 			instance = this;
@@ -27,11 +29,32 @@ public class GameManager : MonoBehaviour {
 
     public void StartGame()
     {
+        gameover = false;
         FadeController.instance.FadeIn();
     }
 
-    public void EndGame()
+    public void EndGame(bool win = false)
     {
-        FadeController.instance.FadeOut();
+        if (!gameover)
+        {
+            gameover = true;
+            FadeController.instance.FadeOut(0.25f);
+            if (win)
+            {
+                FadeController.instance.FadeOutCompletedEvent += delegate {
+                    //display win text
+                    //display default buttons
+                    //display winner buttons
+                };
+            }
+            else
+            {
+                FadeController.instance.FadeOutCompletedEvent += delegate {
+                    //display loser text
+                    //display default buttons
+                    //and loser buttons
+                };
+            }
+        }
     }
 }
