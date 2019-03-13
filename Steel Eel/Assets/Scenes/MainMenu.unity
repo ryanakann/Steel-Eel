@@ -921,7 +921,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: empty
+  m_Text: Locked
 --- !u!222 &146547559
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3650,7 +3650,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 670236865}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3869,7 +3869,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Empty
+  m_Text: Locked
 --- !u!222 &680447794
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4372,7 +4372,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: empty
+  m_Text: Locked
 --- !u!222 &713660776
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4612,7 +4612,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Continue game
+  m_Text: 'Level Select
+
+'
 --- !u!222 &735572924
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5080,8 +5082,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: closeLevelSelect
+      - m_Target: {fileID: 1375287390}
+        m_MethodName: back_options_panels
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7436,7 +7438,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0}
   m_SizeDelta: {x: 1312.31, y: 268}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1177749168
@@ -7878,7 +7880,7 @@ GameObject:
   - component: {fileID: 1251558482}
   - component: {fileID: 1251558481}
   m_Layer: 5
-  m_Name: Continue
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10308,7 +10310,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: empty
+  m_Text: Locked
 --- !u!222 &1617857603
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10761,7 +10763,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: empty
+  m_Text: Locked
 --- !u!222 &1703002974
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12689,7 +12691,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: empty
+  m_Text: Locked
 --- !u!222 &1937794632
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13164,7 +13166,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Load
+  m_Text: Level
 --- !u!222 &2016447740
 CanvasRenderer:
   m_ObjectHideFlags: 0
