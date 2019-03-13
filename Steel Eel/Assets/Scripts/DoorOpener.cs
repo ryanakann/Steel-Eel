@@ -6,15 +6,22 @@ public class DoorOpener : MonoBehaviour, Interactable
 {
     private int playerTouches;
 
-    public GameObject circle, door;
+    public GameObject circle;
+
+    public List<GameObject> doors = new List<GameObject>();
 
     bool interacted;
 
     private void Start()
     {
         circle = transform.GetChild(0).gameObject;
-        door = transform.parent.GetChild(1).gameObject;
-
+        foreach (Transform t in transform)
+        {
+            if (t.CompareTag("Door"))
+            {
+                doors.Add(t.gameObject);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -36,7 +43,8 @@ public class DoorOpener : MonoBehaviour, Interactable
         {
             circle.SetActive(false);
             interacted = true;
-            door.SetActive(false);
+            foreach (GameObject door in doors)
+                door.SetActive(false);
         }
     }
 
