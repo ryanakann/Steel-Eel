@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour {
             FadeController.instance.FadeOut(0.25f);
             if (win)
             {
+                Loader.instance.UnlockLevel(LevelManager.instance.GetLevel());
                 FadeController.instance.FadeOutCompletedEvent += delegate {
                     //display win text
                     //display default buttons

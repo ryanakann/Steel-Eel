@@ -39,4 +39,9 @@ public class LevelManager : MonoBehaviour
         FadeController.instance.FadeIn();
         SceneManager.LoadScene(0);
     }
+
+    public int GetLevel()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
+    }
 }
