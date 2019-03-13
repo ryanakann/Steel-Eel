@@ -44,4 +44,16 @@ public class LevelManager : MonoBehaviour
     {
         return SceneManager.GetActiveScene().buildIndex;
     }
+
+    public void LoadNextLevel()
+    {
+        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCount-1)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        }
+        else
+        {
+            LoadMenu();
+        }
+    }
 }
