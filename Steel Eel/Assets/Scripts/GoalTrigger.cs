@@ -20,7 +20,7 @@ public class GoalTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (!triggered && collider.CompareTag("Eel"))
+        if (!triggered && collider.CompareTag("Player"))
         {
             GameManager.instance.EndGame(true);
         }
