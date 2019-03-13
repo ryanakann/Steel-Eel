@@ -149,7 +149,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 227.78, y: -108.0001}
+  m_AnchoredPosition: {x: 227.78, y: -108.00009}
   m_SizeDelta: {x: 713, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &16925540
@@ -9091,7 +9091,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Big Eels in Little Bengladesh
+  m_Text: 'Big Eels
+
+'
 --- !u!222 &1703002974
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10866,7 +10868,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Around the Bend... But an Eel
+  m_Text: Little Tokyo
 --- !u!222 &1937794632
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10991,7 +10993,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 227.78, y: -58.800003}
+  m_AnchoredPosition: {x: 227.78, y: -58.799988}
   m_SizeDelta: {x: 713, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1988855258
@@ -11426,7 +11428,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The Final Eel (Credits)
+  m_Text: Credits
 --- !u!222 &2010950165
 CanvasRenderer:
   m_ObjectHideFlags: 0

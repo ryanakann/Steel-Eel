@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCount-1)
+        if (SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings-1)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
         }
@@ -55,6 +55,11 @@ public class LevelManager : MonoBehaviour
         {
             LoadMenu();
         }
+    }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     IEnumerator WaitForGameKit()
