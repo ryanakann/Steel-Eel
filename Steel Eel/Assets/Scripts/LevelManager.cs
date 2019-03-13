@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(i);
         if (i > 0)
         {
-            GameManager.instance.StartGame();
+            StartCoroutine(WaitForGameKit());
         }
     }
 
@@ -55,5 +55,15 @@ public class LevelManager : MonoBehaviour
         {
             LoadMenu();
         }
+    }
+
+    IEnumerator WaitForGameKit()
+    {
+        while (!GameManager.instance)
+        {
+            yield return null;
+        }
+
+        GameManager.instance.StartGame();
     }
 }
