@@ -52,8 +52,7 @@ public class EelMovement : MonoBehaviour {
         else {
             currentDashCooldown = 0;
         }
-
-		//print("Difference: " + (mouseScreenPosition - mouseScreenPositionLF).magnitude);
+        
 		mouseSpeedMultiplier = Mathf.Clamp((mouseScreenPosition - mouseScreenPositionLF).magnitude / 10f, 0f, 2f);
 		mouseScreenPositionLF = mouseScreenPosition;
 	}
