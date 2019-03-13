@@ -22,6 +22,8 @@ public class MusicPlayer : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         music = GetComponents<AudioSource>();
+        current_track = music[0];
+        current_track.volume = 1;
     }
 
     public void Play(music m)
