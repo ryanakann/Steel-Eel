@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour {
 	[SerializeField] private Transform[] waypoints;
 
 	public Transform player, playerTail;
+	public GameObject electricEffect;
 
 	//Patrolling
 	private float distanceToNextWaypoint;
@@ -272,6 +273,7 @@ public class EnemyController : MonoBehaviour {
 
     public void Stun()
     {
+		Instantiate(electricEffect, transform.position, Quaternion.identity, transform);
         if (state == EnemyState.capturing)
             EelController.instance.can_input = true;
 

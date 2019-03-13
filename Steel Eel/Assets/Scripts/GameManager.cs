@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
 
 		playerHead = FindObjectOfType<EelMovement>().gameObject;
 		playerPieces = GameObject.FindGameObjectsWithTag("Player");
-        playerTail = playerPieces[playerPieces.Length-1];
+        playerTail = playerPieces[playerPieces.Length-2];
 	}
 
     private void Start()
