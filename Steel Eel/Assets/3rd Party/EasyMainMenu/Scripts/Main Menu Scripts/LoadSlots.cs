@@ -13,7 +13,9 @@ public class LoadSlots : MonoBehaviour
 
     public void ResetProgress()
     {
-
+        Loader.instance.ResetProgress();
+        gameObject.SetActive(false);
+        gameObject.SetActive(true);
     }
 
     private void OnEnable()
