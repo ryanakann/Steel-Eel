@@ -49,7 +49,7 @@ public class EelController : MonoBehaviour
 #endif
 
 #if UNITY_STANDALONE_OSX
-        ComputerUpdate();
+		ComputerUpdate();
 #endif
 
 #if UNITY_ANDROID
@@ -111,7 +111,7 @@ public class EelController : MonoBehaviour
 #endif
 
 #if UNITY_STANDALONE_OSX
-        return Input.mousePosition;
+		return Input.mousePosition;
 #endif
 
 #if UNITY_ANDROID
@@ -125,5 +125,5 @@ public class EelController : MonoBehaviour
             return Input.GetTouch(0).position;
         else return new Vector3(0, 0, -500);
 #endif
-    }
+	}
 }
