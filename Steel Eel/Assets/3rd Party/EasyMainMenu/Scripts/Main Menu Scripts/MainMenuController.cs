@@ -116,6 +116,8 @@ public class MainMenuController : MonoBehaviour {
         GfxPanel.SetActive(false);
         LoadGamePanel.SetActive(true);
 
+        print("Doing it: " + LoadGamePanel.name);
+
         //play anim for opening game options panel
         anim.Play("OptTweenAnim_on");
 

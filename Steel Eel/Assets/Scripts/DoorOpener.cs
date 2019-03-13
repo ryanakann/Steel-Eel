@@ -15,7 +15,7 @@ public class DoorOpener : MonoBehaviour, Interactable
     private void Start()
     {
         circle = transform.GetChild(0).gameObject;
-        foreach (Transform t in transform)
+        foreach (Transform t in transform.parent)
         {
             if (t.CompareTag("Door"))
             {
