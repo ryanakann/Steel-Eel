@@ -43,9 +43,10 @@ public class GameManager : MonoBehaviour {
             {
                 Loader.instance.UnlockLevel(LevelManager.instance.GetLevel());
                 FadeController.instance.FadeOutCompletedEvent += delegate {
-                    //display win text
-                    //display default buttons
-                    //display winner buttons
+					//display win text
+					//display default buttons
+					//display winner buttons
+					LevelManager.instance.LoadNextLevel();
                 };
             }
             else
