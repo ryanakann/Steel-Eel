@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour {
                     //display loser text
                     //display default buttons
                     //and loser buttons
+                    LevelManager.instance.ReloadLevel();
                 };
             }
         }
