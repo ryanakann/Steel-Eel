@@ -30,8 +30,24 @@ public class GameManager : MonoBehaviour {
         FadeController.instance.FadeIn();
     }
 
-    public void EndGame()
+    public void EndGame(bool win = false)
     {
         FadeController.instance.FadeOut();
+        if (win)
+        {
+            FadeController.instance.FadeOutCompletedEvent += delegate {
+                //display win text
+                //display default buttons
+                //display winner buttons
+            };
+        }
+        else
+        {
+            FadeController.instance.FadeOutCompletedEvent += delegate {
+                //display loser text
+                //display default buttons
+                //and loser buttons
+            };
+        }
     }
 }

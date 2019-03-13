@@ -274,8 +274,7 @@ public class EnemyController : MonoBehaviour {
     public void Stun()
     {
 		Instantiate(electricEffect, transform.position, Quaternion.identity, transform);
-        if (state == EnemyState.capturing)
-            EelController.instance.can_input = true;
+        EelController.instance.can_input = true;
 
         Setup(false);
 

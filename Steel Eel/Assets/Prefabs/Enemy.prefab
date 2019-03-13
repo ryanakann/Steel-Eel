@@ -312,6 +312,8 @@ MonoBehaviour:
   waypoints: []
   player: {fileID: 0}
   playerTail: {fileID: 0}
+  electricEffect: {fileID: 6401696442560885318, guid: 931c02fbd1a724bb397a03e52b675434,
+    type: 3}
   currentWaypoint: {fileID: 0}
   stunDuration: 5
 --- !u!114 &998185380901578369
@@ -358,6 +360,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 998185380901578381}
     m_Modifications:
+    - target: {fileID: 5296215798639056570, guid: d83edf76dd3c29f40b9523cf15dd5715,
+        type: 3}
+      propertyPath: m_Name
+      value: Stunner
+      objectReference: {fileID: 0}
     - target: {fileID: 5296215798639056569, guid: d83edf76dd3c29f40b9523cf15dd5715,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -412,11 +419,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5296215798639056570, guid: d83edf76dd3c29f40b9523cf15dd5715,
-        type: 3}
-      propertyPath: m_Name
-      value: Stunner
       objectReference: {fileID: 0}
     - target: {fileID: 5296215798639056568, guid: d83edf76dd3c29f40b9523cf15dd5715,
         type: 3}
